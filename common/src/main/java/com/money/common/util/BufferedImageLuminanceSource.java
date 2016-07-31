@@ -1,4 +1,4 @@
-package util;
+package com.money.common.util;
 
 import com.google.zxing.LuminanceSource;
 

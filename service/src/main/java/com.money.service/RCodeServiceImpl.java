@@ -1,4 +1,4 @@
-package main;
+package com.money.service;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -13,38 +13,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by mfg on 16/07/30.
+ * [Description]
+ * date: 2016/7/31
+ *
+ * @author maofagui
+ * @version 1.0
  */
-public class Main {
-
-    public static void main(String[] args) {
-        Main pro = new Main();
-        pro.encode();
-        pro.decode();
+public class RCodeServiceImpl {
+    public static void main(String []args){
+        RCodeServiceImpl pro  = new RCodeServiceImpl();
+        pro.encode("120605181003;http://www.cnblogs.com/jtmjx", "E:\\cache\\123.jpg");
     }
-    public void encode(){
+
+    public void encode(String content, String filePath){
         try {
-
-            String content = "120605181003;http://www.cnblogs.com/jtmjx";
-            String path = "E:\\cache";
-
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-
             Map hints = new HashMap();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
             BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400,hints);
-            File file1 = new File(path,"123.jpg");
-            MatrixToImageWriter.writeToFile(bitMatrix, "jpg", file1);
-
+            File file = new File(filePath);
+            MatrixToImageWriter.writeToFile(bitMatrix, "jpg", file);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void decode(){
+    public Result decode(String filePath){
         try {
             MultiFormatReader formatReader = new MultiFormatReader();
-            String filePath = "E:\\cache/123.jpg";
             File file = new File(filePath);
             BufferedImage image = ImageIO.read(file);;
             LuminanceSource source = new BufferedImageLuminanceSource(image);
@@ -58,8 +54,10 @@ public class Main {
             System.out.println("resultFormat = "+ result.getBarcodeFormat());
             System.out.println("resultText = "+ result.getText());
 
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
