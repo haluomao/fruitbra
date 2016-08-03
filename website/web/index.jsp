@@ -66,6 +66,7 @@
         </div>
     </div>
     <div class="row" id="rcode">
+        <img id="imgid" src="" />
     </div>
     <hr>
 
@@ -92,7 +93,7 @@
                 async: false,
                 success: function (resp) {
                     var res = eval("(" + resp + ")");
-                    $("#rcode").html(res.phone);
+                    $("#imgid").attr("src","data:image/jpg;base64," + res.data);
                     if (res.code == 100) {
                         $.alert({
                             title: '提示!',

@@ -1,13 +1,17 @@
 package com.money.website.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.money.common.util.Base64Helper;
 import com.money.common.util.JsonHelper;
+import com.money.service.RCodeServiceImpl;
+import com.money.website.config.Config;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +37,15 @@ public class MainController {
         System.out.println("getRcode:phone"+phone);
         String res = "";
         Map map = new HashMap<String, String>();
-        map.put("phone", phone);
+
+        String fileName = "2.jpg";
+        System.out.println(fileName);
+        RCodeServiceImpl.encode(phone, fileName);
+
+        String str = Base64Helper.genImageStr(fileName);
+        System.out.println(str);
+
+        map.put("data", str);
         map.put("code", 100);
         try {
             res = JsonHelper.write(map);
