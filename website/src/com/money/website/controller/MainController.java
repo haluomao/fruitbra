@@ -1,7 +1,10 @@
 package com.money.website.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.money.common.util.Base64Helper;
 import com.money.common.util.JsonHelper;
+import com.money.common.util.NamingUtil;
+import com.money.service.RCodeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +36,11 @@ public class MainController {
         System.out.println("getRcode:phone"+phone);
         String res = "";
         Map map = new HashMap<String, String>();
-        map.put("phone", phone);
+        String fileName= NamingUtil.getDateLongName()+".jpg";
+        RCodeServiceImpl.encode(phone, fileName);
+        String data = Base64Helper.getImageStr(fileName);
+        System.out.println(data);
+        map.put("data", data);
         map.put("code", 100);
         try {
             res = JsonHelper.write(map);

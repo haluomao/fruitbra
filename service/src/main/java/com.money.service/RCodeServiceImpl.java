@@ -25,12 +25,12 @@ public class RCodeServiceImpl {
         pro.encode("120605181003;http://www.cnblogs.com/jtmjx", "E:\\cache\\123.jpg");
     }
 
-    public void encode(String content, String filePath){
+    public static void encode(String content, String filePath){
         try {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             Map hints = new HashMap();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400,hints);
+            BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 180, 180,hints);
             File file = new File(filePath);
             MatrixToImageWriter.writeToFile(bitMatrix, "jpg", file);
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class RCodeServiceImpl {
         }
     }
 
-    public Result decode(String filePath){
+    public static Result decode(String filePath){
         try {
             MultiFormatReader formatReader = new MultiFormatReader();
             File file = new File(filePath);

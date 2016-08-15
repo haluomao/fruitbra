@@ -46,9 +46,13 @@
     <div class="container">
         <h2>七夕佳节</h2>
 
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-            jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-            unique.</p>
+        <p>你也许是我近旁的一株木棉，</p><p>
+            做为树的形象和我站在一起。</p><p>
+            为你承担寒潮、风雷、霹雳；</p><p>
+            与你共享雾霭、流岚、虹霓。</p><p>
+    </p><p>
+            我爱你——</p><p>
+            在美丽的七夕，</p><p>更在每一个平凡的朝夕。</p>
 
         <p><a class="btn btn-primary btn-lg" href="#" role="button">送礼表真心 »</a></p>
     </div>
@@ -66,6 +70,7 @@
         </div>
     </div>
     <div class="row" id="rcode">
+        <img id="imgid" src="">
     </div>
     <hr>
 
@@ -92,20 +97,7 @@
                 async: false,
                 success: function (resp) {
                     var res = eval("(" + resp + ")");
-                    $("#rcode").html(res.phone);
-                    if (res.code == 100) {
-                        $.alert({
-                            title: '提示!',
-                            content: '修改成功!',
-                            confirmButton: '知道了',
-                            confirm: function () {
-                                window.location.reload();
-                            }
-                        });
-                    }
-                    else {
-                        $("#rcode").html("手机号码有误！");
-                    }
+                    $("#imgid").attr("src","data:image/jpg;base64,"+res.data);
                 },
                 error: function (resp) {
                     var res = eval("(" + resp + ")");
