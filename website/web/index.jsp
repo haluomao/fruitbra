@@ -70,7 +70,8 @@
         </div>
     </div>
     <div class="row" id="rcode">
-        <img id="imgid" src="">
+
+        <img id="imgid" src="" />
     </div>
     <hr>
 
@@ -97,7 +98,20 @@
                 async: false,
                 success: function (resp) {
                     var res = eval("(" + resp + ")");
-                    $("#imgid").attr("src","data:image/jpg;base64,"+res.data);
+                    $("#imgid").attr("src","data:image/jpg;base64," + res.data);
+                    if (res.code == 100) {
+                        $.alert({
+                            title: '提示!',
+                            content: '修改成功!',
+                            confirmButton: '知道了',
+                            confirm: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                    else {
+                        $("#rcode").html("手机号码有误！");
+                    }
                 },
                 error: function (resp) {
                     var res = eval("(" + resp + ")");

@@ -22,7 +22,7 @@ import java.util.Map;
 public class RCodeServiceImpl {
     public static void main(String []args){
         RCodeServiceImpl pro  = new RCodeServiceImpl();
-        pro.encode("120605181003;http://www.cnblogs.com/jtmjx", "E:\\cache\\123.jpg");
+        pro.encode("120605181003;http://www.cnblogs.com/jtmjx", "E:\\cache\\122.jpg");
     }
 
     public static void encode(String content, String filePath){

@@ -1,6 +1,5 @@
 package com.money.website.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.money.common.util.Base64Helper;
 import com.money.common.util.JsonHelper;
 import com.money.common.util.NamingUtil;
@@ -33,10 +32,10 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/ajax/get_rcode.htm")
     public String getRcode(@RequestParam(value = "phone", defaultValue = "1") String phone) {
-        System.out.println("getRcode:phone"+phone);
+        System.out.println("getRcode:phone" + phone);
         String res = "";
         Map map = new HashMap<String, String>();
-        String fileName= NamingUtil.getDateLongName()+".jpg";
+        String fileName = NamingUtil.getDateLongName() + ".jpg";
         RCodeServiceImpl.encode(phone, fileName);
         String data = Base64Helper.getImageStr(fileName);
         System.out.println(data);
