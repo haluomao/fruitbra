@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.money.dao.OrderProductMapper" >
+  <resultMap id="BaseResultMap" type="OrderProduct" >
+    <id column="product_id" property="productId" jdbcType="BIGINT" />
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, order_id, add_time, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="OrderProductKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_product
+    where product_id = #{productId,jdbcType=BIGINT}
+      and order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="OrderProductKey" >
+    delete from order_product
+    where product_id = #{productId,jdbcType=BIGINT}
+      and order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="OrderProduct" >
+    insert into order_product (product_id, order_id, add_time, 
+      state)
+    values (#{productId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="OrderProduct" >
+    insert into order_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="OrderProduct" >
+    update order_product
+    <set >
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=BIGINT}
+      and order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="OrderProduct" >
+    update order_product
+    set add_time = #{addTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=SMALLINT}
+    where product_id = #{productId,jdbcType=BIGINT}
+      and order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>

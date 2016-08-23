@@ -21,7 +21,7 @@ drop table if exists wechat;
 /*==============================================================*/
 create table buyer
 (
-   buyer_id             bigint not null,
+   buyer_id             bigint not null auto_increment,
    buyer_name           varchar(50),
    phone                varchar(20),
    email                varchar(50),
@@ -36,26 +36,14 @@ create table buyer
 
 alter table buyer comment '购买者信息';
 
-/*==============================================================*/
-/* Table: order_product                                         */
-/*==============================================================*/
-create table order_product
-(
-   product_id           bigint not null,
-   order_id             bigint not null,
-   add_time             datetime,
-   state                smallint,
-   primary key (product_id, order_id)
-);
 
-alter table order_product comment '订单 商品 关联信息表';
 
 /*==============================================================*/
 /* Table: product                                               */
 /*==============================================================*/
 create table product
 (
-   product_id           bigint not null,
+   product_id           bigint not null auto_increment,
    product_name         varchar(200),
    serial_num           varchar(20),
    type                 smallint,
@@ -75,7 +63,7 @@ alter table product comment '产品信息';
 /*==============================================================*/
 create table seller
 (
-   seller_id            bigint not null,
+   seller_id            bigint not null auto_increment,
    wechat_id            bigint,
    seller_name          varchar(100),
    phone                varchar(20),
@@ -92,7 +80,7 @@ alter table seller comment '微商或供应商信息';
 /*==============================================================*/
 create table tb_order
 (
-   order_id             bigint not null,
+   order_id             bigint not null auto_increment,
    order_time           datetime,
    money                int,
    state                smallint,
@@ -110,7 +98,7 @@ alter table tb_order comment '订单信息';
 /*==============================================================*/
 create table wechat
 (
-   wechat_id            bigint not null,
+   wechat_id            bigint not null auto_increment,
    wechat_account       varchar(50),
    wechat_name          varchar(50),
    wechat_url           varchar(1024),
@@ -119,6 +107,20 @@ create table wechat
    state                smallint,
    primary key (wechat_id)
 );
+
+/*==============================================================*/
+/* Table: order_product                                         */
+/*==============================================================*/
+create table order_product
+(
+   product_id           bigint not null,
+   order_id             bigint not null,
+   add_time             datetime,
+   state                smallint,
+   primary key (product_id, order_id)
+);
+
+alter table order_product comment '订单 商品 关联信息表';
 
 alter table wechat comment '微信号信息';
 
